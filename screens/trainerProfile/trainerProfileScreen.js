@@ -7,25 +7,6 @@ import { useTranslation } from 'react-i18next';
 
 const { height, width } = Dimensions.get('window');
 
-const reviews = [
-    {
-        id: '1',
-        userImage: require('../../assets/images/user/user2.png'),
-    },
-    {
-        id: '2',
-        userImage: require('../../assets/images/user/user3.png'),
-    },
-    {
-        id: '3',
-        userImage: require('../../assets/images/user/user4.png'),
-    },
-    {
-        id: '4',
-        userImage: require('../../assets/images/user/user5.png'),
-    },
-];
-
 const sessions = [
     {
         id: '1',
@@ -168,35 +149,10 @@ const TrainerProfileScreen = ({ navigation }) => {
         return (
             <View style={{ marginHorizontal: Sizes.fixPadding * 2.0, marginVertical: Sizes.fixPadding * 2.5 }}>
                 {reviewTitleAndRatingInfo()}
-                {totalReviewsAndUserInfo()}
             </View>
         )
     }
 
-    function totalReviewsAndUserInfo() {
-        let left = 80;
-        return (
-            <View style={{ marginTop: Sizes.fixPadding, flexDirection: isRtl ? 'row-reverse' : 'row', }}>
-                <View style={{ ...styles.totalReviewsWrapStyle, }}>
-                    <Text style={{ ...Fonts.whiteColor10SemiBold }}>
-                        50k
-                    </Text>
-                </View>
-                {
-                    reviews.slice(0, 4).reverse().map((item, index) => {
-                        left = left - 20;
-                        return (
-                            <Image
-                                key={`${item.id}`}
-                                source={item.userImage}
-                                style={{ ...styles.reviewImageStyle, left: left, position: 'absolute' }}
-                            />
-                        )
-                    })
-                }
-            </View>
-        )
-    }
 
     function reviewTitleAndRatingInfo() {
         return (

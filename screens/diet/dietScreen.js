@@ -109,7 +109,6 @@ console.log(userInfo)
                     style={{ alignItems: 'center', marginRight: Sizes.fixPadding * 2.0 }}
                 >
                     <Image
-                        source={path}
                         style={styles.foodImageStyle}
                     />
                     <View style={styles.mealsCategoryWrapStyle}>

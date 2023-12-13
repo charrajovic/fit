@@ -14,27 +14,27 @@ const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S',];
 
 
 
-const VideosScreen = ({ navigation }) => {
+const VideosScreen = ({ navigation, route }) => {
 
     const { t, i18n } = useTranslation();
 
     const isRtl = i18n.dir() == 'rtl';
 
-    const [userInfo, setUserInfo] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const res = route.params.item;
 
+    console.log('res.folderExercice')
+    console.log(res.folder.folderExercice.length)
+
+
+    const [userInfo, setUserInfo] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    // setUserInfo(res.folder.folderExercice)
+    
     useEffect(() => {
-      async function getUserInfo() {
-        try {
-          const data = await fetchUserInfo();
-          console.log(userInfo)
-        } catch (error) {
-          // Handle error
-        }
-      }
-  
-      getUserInfo();
-    }, []);
+        // Add a navigation event listener
+        setUserInfo(res.folder.folderExercice)
+      }, []);
 
     function loadingDialog() {
         return (
@@ -44,7 +44,7 @@ const VideosScreen = ({ navigation }) => {
                 isVisible={isLoading}
                 overlayStyle={styles.dialogStyle}
             >
-                <ActivityIndicator size={35} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
+                <ActivityIndicator size={35} color={Colors.lightPrimaryColor} style={{ alignSelf: 'center' }} />
                 <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
                     {tr('wait')}
                 </Text>
@@ -52,32 +52,6 @@ const VideosScreen = ({ navigation }) => {
         )
     }
   
-  
-  async function fetchUserInfo() {
-    setIsLoading(true)
-    try {
-    
-        console.log('here')
-      await AsyncStorage.getItem('token').then(async (storedValue) => {
-        if (storedValue) {
-      const response = await axios.get('https://xxtreme-fitness.com/api/auth/exercices', {
-        headers: {
-          Authorization: `Bearer ${storedValue}`,
-        },
-      }).then(async (result) => { 
-        console.log(result.data.userExercice)
-        const data = await result.data.userExercice;
-        setUserInfo(data);
-      return data;
-      });
-      
-        }})
-    } catch (error) {
-      console.error('Error fetching user information:', error);
-      throw error;
-    }
-    setIsLoading(false)
-}
 
     function tr(key) {
         return t(`videosScreen:${key}`)
@@ -99,7 +73,7 @@ const VideosScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
-            <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
+            <StatusBar translucent={false} backgroundColor={Colors.lightPrimaryColor} />
             <View style={{ flex: 1, }}>
                 {header()}
                 {calendarInfo()}
@@ -122,8 +96,8 @@ const VideosScreen = ({ navigation }) => {
 
     function workoutInfo() {
         const renderItem = ({ item }) => {
-            const path = "http://api2v.xxtreme-fitness.com/"+item.exercice.image;
-            console.log(path)
+            const path = "https://api2v.xxtreme-fitness.com/"+item.exercice.image;
+            console.log(item)
             return (
                 <TouchableOpacity
                     activeOpacity={0.99}
@@ -151,7 +125,7 @@ const VideosScreen = ({ navigation }) => {
                                         style={{ position: 'absolute' }}
                                     />
                                 </View>
-                                <View style={{ ...styles.workoutDetailWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row', }}>
+                                <View style={{ ...styles.workoutDetailWrapStyle, flexDirection: 'row', }}>
                                     <Text style={{ flex: 1, ...Fonts.blackColor14Regular }}>
                                         {item.exercice.name}
                                     </Text>
@@ -181,7 +155,7 @@ const VideosScreen = ({ navigation }) => {
                     {defaultDate} {monthsList[defaultMonth]}
                 </Text>
                 <Text style={{ ...Fonts.grayColor16Regular }}>
-                    Today you have  {userInfo ? userInfo.length : ''} workout.
+                {tr('tody')} {userInfo ? userInfo.length : ''} {tr('workout')}.
                 </Text>
             </View>
         )
@@ -255,7 +229,7 @@ const VideosScreen = ({ navigation }) => {
                 }}
                 style={{
                     ...styles.dayWrapStyle,
-                    backgroundColor: date.day == defaultDate ? Colors.primaryColor : Colors.whiteColor
+                    backgroundColor: date.day == defaultDate ? Colors.lightPrimaryColor : Colors.whiteColor
                 }}
             >
                 <Text style={date.day == defaultDate ? { ...Fonts.whiteColor18SemiBold } : { ...Fonts.grayColor18SemiBold }}>
@@ -314,7 +288,7 @@ export default VideosScreen;
 
 const styles = StyleSheet.create({
     buttonStyle: {
-        backgroundColor: Colors.primaryColor,
+        backgroundColor: Colors.lightPrimaryColor,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: Sizes.fixPadding,
@@ -324,7 +298,7 @@ const styles = StyleSheet.create({
         marginBottom: Sizes.fixPadding * 2.0,
     },
     goalWrapStyle: {
-        borderColor: Colors.primaryColor,
+        borderColor: Colors.lightPrimaryColor,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',

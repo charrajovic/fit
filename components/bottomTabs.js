@@ -14,22 +14,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 const Tab = createBottomTabNavigator();
 let data= {}
-console.log('from here')
-console.log(AsyncStorage.getItem('token'))
 AsyncStorage.getItem('token').then(async (storedValue) => {
-    console.log('---------------')
-    console.log(storedValue)
     if (storedValue) {
         try {
-            const response = await axios.get('https://xxtreme-fitness.com/api/auth/user', {
+            const response = await axios.get('https://api2v.xxtreme-fitness.com/api/auth/user', {
               headers: {
                 Authorization: `Bearer ${storedValue}`,
               },
             }).then((result) => {
-                // console.log(result.data)
                 data = result.data;
-                console.log('------------------------')
-                console.log(data)
             });
           } catch (error) {
             // Handle error
@@ -47,7 +40,6 @@ const BottomTabs = () => {
       async function getUserInfo() {
         try {
           const data = await fetchUserInfo();
-          console.log(userInfo)
         } catch (error) {
           // Handle error
         }
@@ -59,15 +51,13 @@ const BottomTabs = () => {
   
   async function fetchUserInfo() {
     try {
-        console.log('here')
       AsyncStorage.getItem('token').then(async (storedValue) => {
         if (storedValue) {
-      const response = await axios.get('https://xxtreme-fitness.com/api/auth/user', {
+      const response = await axios.get('https://api2v.xxtreme-fitness.com/api/auth/user', {
         headers: {
           Authorization: `Bearer ${storedValue}`,
         },
       }).then(async (result) => { 
-        // console.log(result.data)
         const data = await result.data;
         setUserInfo(data);
       return data;
@@ -111,7 +101,7 @@ const BottomTabs = () => {
                 <Tab.Navigator
                     screenOptions={{
                         headerShown: false,
-                        tabBarActiveTintColor: Colors.primaryColor,
+                        tabBarActiveTintColor: Colors.yellowColor,
                         tabBarInactiveTintColor: Colors.grayColor,
                         tabBarLabelStyle: { fontSize: 14.0, fontFamily: 'Montserrat_SemiBold', },
                         tabBarStyle: { height: 60.0 },
@@ -143,7 +133,7 @@ const BottomTabs = () => {
                 <Tab.Navigator
                     screenOptions={{
                         headerShown: false,
-                        tabBarActiveTintColor: Colors.primaryColor,
+                        tabBarActiveTintColor: Colors.yellowColor,
                         tabBarInactiveTintColor: Colors.grayColor,
                         tabBarLabelStyle: { fontSize: 14.0, fontFamily: 'Montserrat_SemiBold', },
                         tabBarStyle: { height: 60.0 },
@@ -164,13 +154,6 @@ const BottomTabs = () => {
                             tabBarIcon: ({ color }) => <MaterialIcons name="fitness-center" size={24} color={color} style={{
                                 transform: [{ rotate: '-40deg' }]
                             }} />
-                        }}
-                    />
-                    <Tab.Screen
-                        name={tr('insight')}
-                        component={InsightScreen}
-                        options={{
-                            tabBarIcon: ({ color }) => <MaterialIcons name="collections-bookmark" size={24} color={color} />
                         }}
                     />
                     <Tab.Screen

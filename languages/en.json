@@ -80,6 +80,9 @@
     "homeScreen": {
         "userWelcome": "Good morning",
         "joinNow": "Whatsapp contact",
+        "object": "This Is Your\nHome Page\nPersonal Tranning",
+        "welc": "Welcome",
+        "easy": "Easy to use",
         "premium1": "Starting",
         "premium3": "/month",
         "today": "Today",
@@ -169,7 +172,9 @@
         "skip": "skip"
     },
     "videosScreen": {
-        "header": "Full body tranning"
+        "header": "Full body tranning",
+        "tody": "Today you have",
+        "workout": "workout"
     },
     "userProgramScreen": {
         "calories": "Calories",
@@ -181,7 +186,11 @@
         "begin": "Begin",
         "upcomingVideo": "Upcoming Video",
         "addInFav": "Added in favorite",
-        "removeFromFav": "Removed from Favorite"
+        "removeFromFav": "Removed from Favorite",
+        "recuperation": "Recovery",
+        "poids": "Weight",
+        "series": "Séries",
+        "repetition": "Repetition"
     },
     "trainersScreen": {
         "header": "Trainers",
@@ -226,6 +235,10 @@
     "dietScreen": {
         "header": "Diet",
         "todayPlanTitle": "Today diet plan",
+        "petitTitle": "Breakfast",
+        "dejeunerTitle": "Lunch",
+        "gouterTitle": "To taste",
+        "dinerTitle": "Dinner",
         "dietCategoryTitle": "Diet categories",
         "seeAll": "see all",
         "favDietTitle": "Favourite diet",
@@ -240,7 +253,8 @@
     "mealCategoryVideoScreen": {
         "protein": "Protein",
         "fat": "Fat",
-        "calories": "Calories",
+        "description": "Description",
+        "calories": "Weight",
         "ingrediants": "Ingrediants",
         "recipe": "Recipe",
         "readMore": "Read more",
@@ -341,7 +355,10 @@
         "hindi": "Hindi",
         "indonesian": "Indonesian",
         "chienese": "Chienese",
-        "arabic": "Arabic"
+        "arabic": "Arabic",
+        "signin":"Sign In",
+        "next":"Next",
+        "skip":"Skip"
     },
     "calender": {
         "jan": "Jan",

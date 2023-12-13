@@ -7,6 +7,25 @@ import { useTranslation } from 'react-i18next';
 
 const { height, width } = Dimensions.get('window');
 
+const reviews = [
+    {
+        id: '1',
+        userImage: require('../../assets/images/user/user2.png'),
+    },
+    {
+        id: '2',
+        userImage: require('../../assets/images/user/user3.png'),
+    },
+    {
+        id: '3',
+        userImage: require('../../assets/images/user/user4.png'),
+    },
+    {
+        id: '4',
+        userImage: require('../../assets/images/user/user5.png'),
+    },
+];
+
 const sessions = [
     {
         id: '1',
@@ -28,9 +47,12 @@ const sessions = [
     },
 ];
 
-const TrainerProfileScreen = ({ navigation }) => {
+const TrainerProfileScreen = ({ navigation, route }) => {
 
     const { t, i18n } = useTranslation();
+
+    const itm = route.params.item;
+    console.log(itm)
 
     const isRtl = i18n.dir() == 'rtl';
 
@@ -40,7 +62,7 @@ const TrainerProfileScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
-            <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
+            <StatusBar translucent={false} backgroundColor={Colors.lightPrimaryColor} />
             {collapsibleHeader()}
         </SafeAreaView>
     )
@@ -50,8 +72,6 @@ const TrainerProfileScreen = ({ navigation }) => {
             return (
                 <View style={{ flex: 1, }}>
                     {trainerDetail()}
-                    {reviewInfo()}
-                    {upcomingSecssionInfo()}
                 </View>
             )
         }
@@ -82,7 +102,7 @@ const TrainerProfileScreen = ({ navigation }) => {
         const renderToolBar = () => {
             return (
                 <ImageBackground
-                    source={require('../../assets/images/trainers/trainer6.png')}
+                    source={itm.trainerImage}
                     style={{ width: '100%', height: height / 2.1, }}
                 >
                 </ImageBackground>
@@ -94,7 +114,7 @@ const TrainerProfileScreen = ({ navigation }) => {
                 renderContent={renderContent}
                 renderNavBar={renderNavBar}
                 renderToolBar={renderToolBar}
-                collapsedNavBarBackgroundColor={Colors.primaryColor}
+                collapsedNavBarBackgroundColor={Colors.lightPrimaryColor}
                 translucentStatusBar={false}
             />
         )
@@ -107,7 +127,6 @@ const TrainerProfileScreen = ({ navigation }) => {
                 {contactOptions()}
                 {expercienceInfo()}
                 {otherDetail()}
-                {feeAndBookButton()}
             </View>
         )
     }
@@ -149,10 +168,35 @@ const TrainerProfileScreen = ({ navigation }) => {
         return (
             <View style={{ marginHorizontal: Sizes.fixPadding * 2.0, marginVertical: Sizes.fixPadding * 2.5 }}>
                 {reviewTitleAndRatingInfo()}
+                {totalReviewsAndUserInfo()}
             </View>
         )
     }
 
+    function totalReviewsAndUserInfo() {
+        let left = 80;
+        return (
+            <View style={{ marginTop: Sizes.fixPadding, flexDirection: isRtl ? 'row-reverse' : 'row', }}>
+                <View style={{ ...styles.totalReviewsWrapStyle, }}>
+                    <Text style={{ ...Fonts.whiteColor10SemiBold }}>
+                        50k
+                    </Text>
+                </View>
+                {
+                    reviews.slice(0, 4).reverse().map((item, index) => {
+                        left = left - 20;
+                        return (
+                            <Image
+                                key={`${item.id}`}
+                                source={item.userImage}
+                                style={{ ...styles.reviewImageStyle, left: left, position: 'absolute' }}
+                            />
+                        )
+                    })
+                }
+            </View>
+        )
+    }
 
     function reviewTitleAndRatingInfo() {
         return (
@@ -161,7 +205,7 @@ const TrainerProfileScreen = ({ navigation }) => {
                     {tr('reviews')}
                 </Text>
                 <View style={{ flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
-                    <MaterialIcons name="star" size={16} color={Colors.yellowColor} />
+                    <MaterialIcons name="star" size={16} color={Colors.lightPrimaryColor} />
                     <Text style={{ ...Fonts.blackColor16Regular }}>
                         4.5
                     </Text>
@@ -181,7 +225,7 @@ const TrainerProfileScreen = ({ navigation }) => {
                 <TouchableOpacity
                     activeOpacity={0.99}
                     onPress={() => navigation.push('SubscriptionDetail')}
-                    style={{ backgroundColor: Colors.primaryColor, ...styles.buttonStyle, }}
+                    style={{ backgroundColor: Colors.lightPrimaryColor, ...styles.buttonStyle, }}
                 >
                     <Text style={{ ...Fonts.whiteColor16SemiBold }}>
                         {tr('book')}
@@ -195,8 +239,8 @@ const TrainerProfileScreen = ({ navigation }) => {
         return (
             <View style={{ marginHorizontal: Sizes.fixPadding * 2.0, }}>
                 {detailShort({ title: tr('work'), description: '09:00 AM to 06:00 PM' })}
-                {detailShort({ title: tr('speak'), description: 'English & Hindi' })}
-                {detailShort({ title: tr('qualification'), description: 'Diploma in personal tranning' })}
+                {detailShort({ title: tr('speak'), description: 'Arabic & french' })}
+                {detailShort({ title: tr('qualification'), description: 'Diplome in personal tranning' })}
             </View>
         )
     }
@@ -220,9 +264,8 @@ const TrainerProfileScreen = ({ navigation }) => {
     function expercienceInfo() {
         return (
             <View style={{ marginVertical: Sizes.fixPadding * 2.5, flexDirection: isRtl ? 'row-reverse' : 'row', marginHorizontal: Sizes.fixPadding + 5.0 }}>
-                {expercienceInfoShort({ count: 18, description: `Work\nexpriance`, bgColor: '#FAE3E1' })}
-                {expercienceInfoShort({ count: 600, description: `Job\nCompleted`, bgColor: '#E4E5E7' })}
-                {expercienceInfoShort({ count: 60, description: `Client\nServing`, bgColor: '#F5DADE' })}
+                {expercienceInfoShort({ count: itm.yearOfExperience, description: `Work\nexpriance`, bgColor: '#FAE3E1' })}
+                
             </View>
         )
     }
@@ -266,10 +309,10 @@ const TrainerProfileScreen = ({ navigation }) => {
         return (
             <View style={{ marginHorizontal: Sizes.fixPadding * 2.0, alignItems: 'center', }}>
                 <Text style={{ ...Fonts.blackColor22SemiBold }}>
-                    James Joys
+                    {itm.trainerName}
                 </Text>
                 <Text style={{ ...Fonts.grayColor14SemiBold }}>
-                    Yoga specialist
+                {itm.speciality}
                 </Text>
             </View>
         )

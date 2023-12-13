@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "RN FitBit",
-    "slug": "rn-Fitness",
-    "version": "1.0.0",
+    "name": "Xtreme fitness",
+    "slug": "xtreme-fitness",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
@@ -18,13 +18,13 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.camelcase.rnfitbit",
+      "bundleIdentifier": "com.camelcase.xtremefitness",
       "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.camelcase.rnfitbit",
-      "versionCode": 1,
+      "package": "com.camelcase.xtremefitness",
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#FFFFFF"

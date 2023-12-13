@@ -63,14 +63,15 @@ const UserProgramScreen = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
-            <StatusBar hidden={inFullscreen2 ? true : false} translucent={false} backgroundColor={Colors.primaryColor} />
+            <StatusBar hidden={inFullscreen2 ? true : false} translucent={false} backgroundColor={Colors.lightPrimaryColor} />
             <View style={{ flex: 1, }}>
                 {videoDisplay()}
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {trainerInfo()}
                     {caloriesEquipmentAndDurationInfo()}
-                    {benifitsInfo()}
+                    
                     {sessionDetail()}
+                    {benifitsInfo()}
                 </ScrollView>
             </View>
             {snackBar()}
@@ -80,7 +81,7 @@ const UserProgramScreen = ({ navigation, route }) => {
 
     function sessionDetail() {
         return (
-            <View style={{ marginHorizontal: Sizes.fixPadding * 2.0, }}>
+            <View style={{ marginHorizontal: Sizes.fixPadding * 2.0,margin: Sizes.fixPadding * 2.0 }}>
                 <Text style={{ ...Fonts.blackColor16SemiBold }}>
                     {tr('sessionDetails')}
                 </Text>
@@ -138,24 +139,16 @@ const UserProgramScreen = ({ navigation, route }) => {
 
     function benifitsInfo() {
         return (
-            <View style={{ margin: Sizes.fixPadding * 2.0 }}>
+            <View style={{ marginLeft: Sizes.fixPadding * 2.0 }}>
                 <Text style={{ marginBottom: Sizes.fixPadding - 5.0, ...Fonts.blackColor16SemiBold }}>
-                    {tr('benefits')}
+                    {'Description'}
                 </Text>
+                <Text>
                 {
-                   itm.benefits ? itm.benefits.split(' ').map((item, index) => (
-                        <View
-                            key={`${index}`}
-                            style={{ flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
-                            <Text style={{ ...Fonts.blackColor14Medium }}>
-                                •
-                            </Text>
-                            <Text style={{ marginHorizontal: Sizes.fixPadding, ...Fonts.blackColor14Medium }}>
-                                {item}
-                            </Text>
-                        </View>
-                    )) : ''
+                   itm.description ? itm.description : ''
                 }
+                </Text>
+                
             </View>
         )
     }
@@ -168,6 +161,8 @@ const UserProgramScreen = ({ navigation, route }) => {
                 {equipmentInfo()}
                 <View style={{ width: 1.0, backgroundColor: Colors.grayColor, height: '100%', marginHorizontal: Sizes.fixPadding * 2.0, }} />
                 {durationInfo()}
+                <View style={{ width: 1.0, backgroundColor: Colors.grayColor, height: '100%', marginHorizontal: Sizes.fixPadding * 2.0, }} />
+                {durationInfo2()}
             </View>
         )
     }
@@ -175,14 +170,11 @@ const UserProgramScreen = ({ navigation, route }) => {
     function caloriesInfo() {
         return (
             <View style={{ flex: 1, alignItems: 'center', }}>
-                <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-                    {tr('calories')}
+                <Text numberOfLines={1} style={{ ...Fonts.blackColor10SemiBold }}>
+                    {tr('repetition')}
                 </Text>
                 <View style={{ marginTop: Sizes.fixPadding - 5.0, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
-                    <Image
-                        source={require('../../assets/images/icons/calories.png')}
-                        style={{ width: 15.0, height: 15.0, resizeMode: 'contain' }}
-                    />
+                    
                     <Text numberOfLines={1}
                         style={{
                             marginLeft: isRtl ? 0.0 : Sizes.fixPadding - 5.0,
@@ -200,11 +192,11 @@ const UserProgramScreen = ({ navigation, route }) => {
     function durationInfo() {
         return (
             <View style={{ flex: 1, alignItems: 'center', }}>
-                <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-                    {tr('netDuration')}
+                <Text numberOfLines={1} style={{ ...Fonts.blackColor10SemiBold }}>
+                    {tr('recuperation')}
                 </Text>
                 <View style={{ marginTop: Sizes.fixPadding - 5.0, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
-                    <MaterialCommunityIcons name="clock-time-four" size={18} color={Colors.primaryColor} />
+                    
                     <Text numberOfLines={1}
                         style={{
                             marginLeft: isRtl ? 0.0 : Sizes.fixPadding - 5.0,
@@ -212,7 +204,29 @@ const UserProgramScreen = ({ navigation, route }) => {
                             ...Fonts.primaryColor14Medium
                         }}
                     >
-                        {itm.duree} min.
+                        {itm.duree}
+                    </Text>
+                </View>
+            </View>
+        )
+    }
+
+    function durationInfo2() {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', }}>
+                <Text numberOfLines={1} style={{ ...Fonts.blackColor10SemiBold }}>
+                    {tr('series')}
+                </Text>
+                <View style={{ marginTop: Sizes.fixPadding - 5.0, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
+                    
+                    <Text numberOfLines={1}
+                        style={{
+                            marginLeft: isRtl ? 0.0 : Sizes.fixPadding - 5.0,
+                            marginRight: isRtl ? Sizes.fixPadding - 5.0 : 0.0,
+                            ...Fonts.primaryColor14Medium
+                        }}
+                    >
+                        {itm.duree}
                     </Text>
                 </View>
             </View>
@@ -222,11 +236,11 @@ const UserProgramScreen = ({ navigation, route }) => {
     function equipmentInfo() {
         return (
             <View style={{ flex: 1, alignItems: 'center', }}>
-                <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-                    {tr('equpiment')}
+                <Text numberOfLines={1} style={{ ...Fonts.blackColor10SemiBold }}>
+                    {tr('poids')}
                 </Text>
                 <View style={{ marginTop: Sizes.fixPadding - 5.0, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
-                    <MaterialIcons name="fitness-center" size={18} color={Colors.primaryColor} />
+                    
                     <Text numberOfLines={1}
                         style={{
                             marginLeft: isRtl ? 0.0 : Sizes.fixPadding - 5.0,
@@ -268,27 +282,31 @@ const UserProgramScreen = ({ navigation, route }) => {
                     <MaterialIcons
                         name={inFavorite ? "favorite" : "favorite-outline"}
                         size={24}
-                        color={Colors.primaryColor}
+                        color={Colors.lightPrimaryColor}
                         style={{ marginRight: isRtl ? 0.0 : Sizes.fixPadding + 5.0, marginLeft: isRtl ? Sizes.fixPadding + 5.0 : 0.0 }}
                         onPress={() => {
                             setShowSnackBar(true)
                             setInFavorite(!inFavorite)
                         }}
                     />
-                    <Octicons name="download" size={25} color={Colors.primaryColor} />
+                    <Octicons name="download" size={25} color={Colors.lightPrimaryColor} />
                 </View>
             </View>
         )
     }
 
     function videoDisplay() {
+        path = 'https://api2v.xxtreme-fitness.com/' + itm.video
+        console.log(path)
         return (
             <View>
                 <VideoPlayer
                     videoProps={{
                         shouldPlay: true,
                         resizeMode: ResizeMode.STRETCH,
-                        source: require('../../assets/images/ex/2.mp4')
+                        source: {
+                            uri: path ? path : ''
+                          }
                     }}
                     slider={{ visible: true, }}
                     style={{

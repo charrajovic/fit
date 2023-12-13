@@ -12,7 +12,6 @@ const SigninScreen = ({ navigation }) => {
 
 
     AsyncStorage.getItem('token').then((storedValue) => {
-        console.log(storedValue)
         if (storedValue) {
             navigation.push('BottomTabs')
         }
@@ -52,7 +51,7 @@ const SigninScreen = ({ navigation }) => {
                 isVisible={isLoading}
                 overlayStyle={styles.dialogStyle}
             >
-                <ActivityIndicator size={35} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
+                <ActivityIndicator size={35} color={Colors.lightPrimaryColor} style={{ alignSelf: 'center' }} />
                 <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
                     {tr('wait')}
                 </Text>
@@ -74,7 +73,7 @@ const SigninScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
-            <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
+            <StatusBar translucent={false} backgroundColor={Colors.lightPrimaryColor} />
             <View style={{ flex: 1, }}>
                 {header()}
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -153,25 +152,22 @@ const SigninScreen = ({ navigation }) => {
                         email: state.email,
                         password: state.password
                     }
-                    console.log(data)
                     setIsLoading(true)
-                    await axios.post('https://xxtreme-fitness.com/api/auth/signin', data).then((result) => {
-                        console.log('token: '+result)
+                    await axios.post('https://api2v.xxtreme-fitness.com/api/auth/signin', data).then((result) => {
+                       
                         AsyncStorage.removeItem('token')
                         AsyncStorage.setItem('token', result.data.accessToken);    
-                    console.log(result.data.accessToken)
+                    
                     AsyncStorage.getItem('token').then((storedValue) => {
-                        console.log(storedValue)
+                        
                         if (storedValue) {
                             navigation.push('BottomTabs')
                         }
                       });
                     }).catch(e => {
-                        console.log('yeap')
                         console.log(e)
                     }) 
                     setIsLoading(false)
-                    console.log(state)
                     // navigation.push('Signup')
                 }}
                 style={styles.buttonStyle}
@@ -210,7 +206,7 @@ const SigninScreen = ({ navigation }) => {
                     onChangeText={(text) => updateState({ password: text })}
                     placeholder={tr('password')}
                     style={{ ...Fonts.blackColor14Regular, flex: 1, marginLeft: isRtl ? Sizes.fixPadding : 0.0, }}
-                    selectionColor={Colors.primaryColor}
+                    selectionColor={Colors.lightPrimaryColor}
                     placeholderTextColor={'#8D8D8D'}
                     secureTextEntry={!showPassword}
                 />
@@ -232,7 +228,7 @@ const SigninScreen = ({ navigation }) => {
                     onChangeText={(text) => updateState({ email: text })}
                     placeholder={tr('email')}
                     style={{ ...Fonts.blackColor14Regular }}
-                    selectionColor={Colors.primaryColor}
+                    selectionColor={Colors.lightPrimaryColor}
                     keyboardType="email-address"
                     placeholderTextColor={'#8D8D8D'}
                 />
@@ -268,7 +264,7 @@ const styles = StyleSheet.create({
         marginBottom: Sizes.fixPadding * 2.0,
     },
     buttonStyle: {
-        backgroundColor: Colors.primaryColor,
+        backgroundColor: Colors.lightPrimaryColor,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: Sizes.fixPadding,

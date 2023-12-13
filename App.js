@@ -41,6 +41,9 @@ import { withTranslation } from 'react-i18next';
 import { LogBox } from 'react-native';
 import i18n from './languages/index';//don't remove this line
 
+import { RNSScreen } from 'react-native-screens';
+
+
 LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
